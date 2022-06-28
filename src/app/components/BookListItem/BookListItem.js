@@ -3,7 +3,7 @@ import './BookListItem.css';
 import {useState} from "react";
 
 function BookListItem(props) {
-    let [isEdit, setEdit] = useState(false),
+    let [isEdit, setEdit] = useState(props.book.edited),
      [title, setTitle] = useState(props.book.title),
      [author, setAuthor] = useState(props.book.author),
      [pages, setPages] = useState(props.book.pages),
@@ -33,10 +33,11 @@ function BookListItem(props) {
     }
 
     const renderChangedButtons = (props) => {
+        const RefreshBtnTxt = props.book.id > 0 ? "Reload Book" : "Remove Book"
         if (props.book.edited) {
             return <div className="editedButtons">
-                <button onClick={onRefreshClicked} className="btn btn-primary">Reload Book</button>
-                <button onClick={onSubmitChanges} className="btn btn-primary">Submit Changes</button></div>
+                <button onClick={onRefreshClicked} className="btn btn-primary">{RefreshBtnTxt}</button>
+                <button onClick={onSubmitChanges} className="btn btn-primary">Submit</button></div>
         }
     }
 
@@ -46,6 +47,10 @@ function BookListItem(props) {
 
     const onSubmitChanges = () => {
         props.onBookSubmit(props.book.id, {title, author, pages, total_amount, isbn})
+    }
+
+    const onDeleteBook = () => {
+        props.onBookDelete(props.book.id)
     }
 
     const renderCardContent = (props) => {
@@ -95,7 +100,7 @@ function BookListItem(props) {
                             <button type="button" className="btn btn-sm btn-outline-secondary"
                                     onClick={editButtonPressed}>Edit
                             </button>
-                            <button type="button" className="btn btn-sm btn-outline-secondary">Delete</button>
+                            <button type="button" className="btn btn-sm btn-outline-secondary" onClick={onDeleteBook}>Delete</button>
                         </div>
                         <small className="text-muted">{props.book.pages} Pages</small>
                     </div>
