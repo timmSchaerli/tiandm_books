@@ -1,14 +1,15 @@
 import {getBookThumbnail} from "../../service/googleapi";
 import './BookListItem.css';
 import {useState} from "react";
+import BookImage from "../BookImage/BookImage";
 
 function BookListItem(props) {
     let [isEdit, setEdit] = useState(props.book.edited),
-     [title, setTitle] = useState(props.book.title),
-     [author, setAuthor] = useState(props.book.author),
-     [pages, setPages] = useState(props.book.pages),
-     [total_amount, setTotalAmount] = useState(props.book.total_amount),
-     [isbn, setISBN] = useState(props.book.isbn)
+        [title, setTitle] = useState(props.book.title),
+        [author, setAuthor] = useState(props.book.author),
+        [pages, setPages] = useState(props.book.pages),
+        [total_amount, setTotalAmount] = useState(props.book.total_amount),
+        [isbn, setISBN] = useState(props.book.isbn)
 
     const editButtonPressed = () => {
         setEdit(true)
@@ -18,7 +19,7 @@ function BookListItem(props) {
     const onKeyDown = (e) => {
         if (e.key === 'Enter') {
             const b = props.book
-            if (title+author+pages+total_amount+isbn !== b.title+b.author+b.pages+b.total_amount+b.isbn) {
+            if (title + author + pages + total_amount + isbn !== b.title + b.author + b.pages + b.total_amount + b.isbn) {
                 props.onBookDidChange({
                     id: props.book.id,
                     title: title !== "" ? title : props.book.title,
@@ -37,7 +38,8 @@ function BookListItem(props) {
         if (props.book.edited) {
             return <div className="editedButtons">
                 <button onClick={onRefreshClicked} className="btn btn-primary">{RefreshBtnTxt}</button>
-                <button onClick={onSubmitChanges} className="btn btn-primary">Submit</button></div>
+                <button onClick={onSubmitChanges} className="btn btn-primary">Submit</button>
+            </div>
         }
     }
 
@@ -59,28 +61,40 @@ function BookListItem(props) {
                     <div className="input-group mb-3">
                         <span className="input-group-text" id="basic-addon1">title</span>
                         <input type="text" className="form-control" placeholder="title" aria-label="title" value={title}
-                               aria-describedby="basic-addon1" onKeyDown={onKeyDown} onChange={(e) => {setTitle(e.target.value)}}/>
+                               aria-describedby="basic-addon1" onKeyDown={onKeyDown} onChange={(e) => {
+                            setTitle(e.target.value)
+                        }}/>
                     </div>
                     <div className="input-group mb-3">
                         <span className="input-group-text" id="basic-addon1">author</span>
-                        <input type="text" className="form-control" placeholder="author" aria-label="author" value={author}
-                               aria-describedby="basic-addon1" onKeyDown={onKeyDown} onChange={(e) => {setAuthor(e.target.value)}}/>
+                        <input type="text" className="form-control" placeholder="author" aria-label="author"
+                               value={author}
+                               aria-describedby="basic-addon1" onKeyDown={onKeyDown} onChange={(e) => {
+                            setAuthor(e.target.value)
+                        }}/>
                     </div>
                     <div className="input-group mb-3">
                         <span className="input-group-text" id="basic-addon1">total amount</span>
-                        <input type="text" className="form-control" placeholder="total_amount" aria-label="total_amount" value={total_amount}
-                               aria-describedby="basic-addon1" onKeyDown={onKeyDown} onChange={(e) => {setTotalAmount(e.target.value)}}/>
+                        <input type="text" className="form-control" placeholder="total_amount" aria-label="total_amount"
+                               value={total_amount}
+                               aria-describedby="basic-addon1" onKeyDown={onKeyDown} onChange={(e) => {
+                            setTotalAmount(e.target.value)
+                        }}/>
                     </div>
                     <div className="input-group mb-3">
                         <span className="input-group-text" id="basic-addon1">ISBN</span>
                         <input type="text" className="form-control" placeholder="isbn" aria-label="isbn" value={isbn}
                                aria-describedby="basic-addon1" onKeyDown={onKeyDown}
-                               onChange={(e) => {setISBN(e.target.value)}}/>
+                               onChange={(e) => {
+                                   setISBN(e.target.value)
+                               }}/>
                     </div>
                     <div className="input-group mb-3">
                         <span className="input-group-text" id="basic-addon1">pages</span>
                         <input type="text" className="form-control" placeholder="pages" aria-label="pages" value={pages}
-                               aria-describedby="basic-addon1" onKeyDown={onKeyDown} onChange={(e) => {setPages(e.target.value)}}/>
+                               aria-describedby="basic-addon1" onKeyDown={onKeyDown} onChange={(e) => {
+                            setPages(e.target.value)
+                        }}/>
                     </div>
                 </div>
             )
@@ -100,7 +114,9 @@ function BookListItem(props) {
                             <button type="button" className="btn btn-sm btn-outline-secondary"
                                     onClick={editButtonPressed}>Edit
                             </button>
-                            <button type="button" className="btn btn-sm btn-outline-secondary" onClick={onDeleteBook}>Delete</button>
+                            <button type="button" className="btn btn-sm btn-outline-secondary"
+                                    onClick={onDeleteBook}>Delete
+                            </button>
                         </div>
                         <small className="text-muted">{props.book.pages} Pages</small>
                     </div>
@@ -113,7 +129,7 @@ function BookListItem(props) {
         <div className="col">
             <div className="card shadow-sm">
                 {renderChangedButtons(props)}
-                <img src={getBookThumbnail(props.book.isbn)} alt={props.book.title}/>
+                <BookImage isbn={isbn} title={title}/>
                 {renderCardContent(props)}
             </div>
         </div>

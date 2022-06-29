@@ -3,7 +3,7 @@ import {deleteBook, getBook, getBooks, postBook, putBook} from '../../service/mo
 import BookListItem from "../../components/BookListItem/BookListItem";
 import BooksList from "../../components/BooksList/BooksList";
 import Header from "../../components/Header/Header";
-import './BookListPage.css';
+import './BooksListPage.css';
 
 class BooksListPage extends React.Component {
 
@@ -142,7 +142,7 @@ class BooksListPage extends React.Component {
     }
 
     render() {
-        return <div>
+        return <div className="booksPage">
             <Header onNewBook={this.newBook}/>
             <BooksList>
                 {

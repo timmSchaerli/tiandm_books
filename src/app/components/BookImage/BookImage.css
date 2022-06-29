@@ -1,0 +1,13 @@
+img {
+    height: 350px
+}
+
+.imageContainer {
+    height: 350px;
+    width: 100%;
+    align-items: center;
+}
+
+.imageSpinner {
+margin-top: 180px;
+}
